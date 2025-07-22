@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🔐 Secure Login System Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>🔐 Secure Login System Analyzer</h1>
+
+    <form method="POST">
+        <input type="text" name="url" placeholder="Enter website URL (e.g. https://example.com)" required>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if result %}
+        <div class="result">
+            <p>{{ result.message }}</p>
+        </div>
+
+        <h3>✅ HTTPS Check</h3>
+        <ul>
+            <li>HTTPS Supported: {{ result['https_supported'] }}</li>
+            <li>Certificate Valid: {{ result['certificate_valid'] }}</li>
+            <li>Issuer: {{ result['issuer'] }}</li>
+            <li>Valid From: {{ result['valid_from'] }}</li>
+            <li>Valid To: {{ result['valid_to'] }}</li>
+            <li>Error: {{ result['error'] }}</li>
+        </ul>
+
+        <h3>🍪 Cookie Security Check</h3>
+        <ul>
+            <li>Cookies Found: {{ result['cookies_found'] }}</li>
+            <li>Secure Flag: {{ result['secure_flag'] }}</li>
+            <li>HttpOnly Flag: {{ result['http_only_flag'] }}</li>
+            {% if result['cookies'] %}
+                <li><strong>Cookie Details:</strong>
+                    <ul>
+                        {% for cookie in result['cookies'] %}
+                            <li>{{ cookie.name }} - Secure: {{ cookie.secure }}, HttpOnly: {{ cookie.httponly }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+
+        <h3>📦 HSTS Check</h3>
+        <ul>
+            <li>HSTS Enabled: {{ result['hsts_enabled'] }}</li>
+            <li>HSTS Header: {{ result['header'] }}</li>
+            <li>Error: {{ result['error'] }}</li>
+        </ul>
+    {% endif %}
+</body>
+</html>
