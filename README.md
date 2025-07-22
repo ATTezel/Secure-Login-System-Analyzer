@@ -88,14 +88,6 @@ URL: https://example.com
     - HttpOnly flag: ✅
 📦 HSTS Enabled: True
 ```
-## To-Do
-Add JavaScript-based live analysis
-
-Add CSP (Content-Security-Policy) header checks
-
-Export reports to PDF
-
-Multi-URL batch scan
 
 ## License
 MIT License – feel free to use, modify, and contribute!
